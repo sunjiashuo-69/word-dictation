@@ -96,6 +96,16 @@ input[type=range]{width:100%;accent-color:var(--primary)}
 .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:14px 0}
 @media(max-width:560px){.form-grid{grid-template-columns:1fr}}
 .f-label{display:flex;flex-direction:column;gap:7px;font-size:13px;color:var(--muted)}
+.root-row{display:flex;gap:12px;padding:10px 2px;border-bottom:1px solid var(--border);align-items:baseline;flex-wrap:wrap}
+.root-row:last-child{border-bottom:none}
+.root-term{font-weight:700;min-width:150px;color:var(--primary-dark)}
+.root-mean{font-size:13px;min-width:100px}
+.root-ex{font-size:12.5px;color:var(--muted);flex:1;min-width:180px;line-height:1.6}
+@media(max-width:560px){.root-term{min-width:100%}.root-mean{min-width:80px}}
+.demo-item{padding:11px 2px;border-bottom:1px solid var(--border);font-size:13.5px;line-height:1.8}
+.demo-item:last-child{border-bottom:none}
+.demo-no{display:inline-block;background:var(--primary-weak);color:var(--primary-dark);font-size:11px;font-weight:700;border-radius:999px;padding:2px 8px;margin-right:8px;vertical-align:1px}
+.demo-word{font-weight:700;color:var(--text)}
 .f-label input[type=number],.f-label select{color:var(--text)}
 .range-row{display:flex;align-items:center;gap:10px}
 .range-val{font-weight:600;color:var(--text);min-width:36px}
@@ -157,6 +167,9 @@ input[type=range]{width:100%;accent-color:var(--primary)}
     <button class="tab" data-view="wrong">
       <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       错词本 <span class="badge" id="wrongBadge" hidden></span></button>
+    <button class="tab" data-view="roots">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><path d="M12 10c0-4 3-6 7-6 0 4-3 6-7 6z"/><path d="M12 12c0-3-2.5-5-6-5 0 3.5 2.5 5 6 5z"/></svg>
+      词根</button>
     <button class="tab" data-view="settings">
       <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
       设置</button>
@@ -218,6 +231,25 @@ input[type=range]{width:100%;accent-color:var(--primary)}
 <section id="view-quiz" class="view"></section>
 
 <section id="view-wrong" class="view"></section>
+
+<section id="view-roots" class="view">
+  <div class="card">
+    <h3>怎么拆一个词</h3>
+    <p class="sub fmt"><b>前缀（改方向/态度）+ 词根（核心含义）+ 后缀（改词性）</b><br>
+    例：pre（提前）+ dict（说）+ ion（名词）= prediction 预测</p>
+    <p class="sub fmt">① 同一个词根常有变体：spect/spec/spic 都是「看」，tain/ten/tin 都是「握」<br>
+    ② 本页只收高产词根（一个词根能解释 8 个词以上）；take、put 等基础词没有词根可拆，直接背<br>
+    ③ 想深查某个词的来源：<a href="https://www.etymonline.com" target="_blank" rel="noopener">etymonline.com</a>，查过一遍基本忘不掉</p>
+  </div>
+  <div class="card">
+    <div class="search-box" style="margin-top:0">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="rootSearch" type="text" placeholder="搜词根、含义或例词（如 spect / 看 / predict）" autocomplete="off">
+    </div>
+    <p class="sub" id="rootCount"></p>
+  </div>
+  <div id="rootContent"></div>
+</section>
 
 <section id="view-settings" class="view">
   <div class="card">
@@ -371,6 +403,205 @@ function importText(text){
   return {added:added,dup:dup};
 }
 
+/* ---------- 词根词缀数据 ---------- */
+var ROOTS_PREFIX=[
+  ['否定 / 相反',[
+    ['un-','不','unable, unusual, unemployment'],
+    ['in-','不（原形）','incomplete, informal, independent'],
+    ['im-','不（b/m/p 前）','impossible, impolite, imbalance'],
+    ['il-','不（l 前）','illegal, illogical'],
+    ['ir-','不（r 前）','irregular, irresponsible, irrelevant'],
+    ['dis-','否定 / 分离','disagree, disadvantage, discharge'],
+    ['non-','非','non-profit, non-renewable, nonsense'],
+    ['mis-','错误','misunderstand, mislead'],
+    ['anti-','反对','antibiotic, anti-social'],
+    ['counter- / contra-','相反','counterpart, contradict, contrast']
+  ]],
+  ['方向 / 程度',[
+    ['re-','再次 / 回','recycle, reconsider, revise, return'],
+    ['pre-','提前','predict, prevent, preliminary, prejudice'],
+    ['post-','之后','postpone, postgraduate'],
+    ['pro-','向前 / 支持','progress, promote, prospect'],
+    ['de-','向下 / 去除','decline, decrease, degrade, deforest'],
+    ['sub-','下 / 次','subway, subsequent, subsidy'],
+    ['super- / sur-','上 / 超','supervise, superior, survive, surpass'],
+    ['over-','过度 / 在上','overestimate, overlook, overall'],
+    ['under-','不足 / 在下','underestimate, undergo, underlying'],
+    ['inter-','之间 / 相互','interact, international, intervene'],
+    ['trans-','横穿 / 转变','transport, transform, transmit'],
+    ['ex-','出 / 向外','export, exclude, exhaust'],
+    ['per-','贯穿 / 每','persist, permanent, perceive'],
+    ['ab-','离开','abstract, abundant, abandon'],
+    ['fore-','前 / 预先','forecast, foresee'],
+    ['out-','超过 / 外','outperform, outnumber, outdoor'],
+    ['en- / em-','使进入 / 使成为','enable, enforce, embark, emphasize']
+  ]],
+  ['共同 / 朝向',[
+    ['co- / com- / con-','共同','cooperate, combine, connect, consequence'],
+    ['col- / cor-','共同（同化形）','collaborate, correlate, correspond'],
+    ['ad- / ac- / af- / ag- / ap- / ar- / at-','朝向','adapt, accelerate, afford, aggressive, approach, attract'],
+    ['ob- / op-','逆 / 对','object, oppose, obstacle'],
+    ['auto-','自己 / 自动','automatic, autonomous']
+  ]],
+  ['数量 / 性质',[
+    ['multi-','多','multinational, multiple'],
+    ['semi-','半','semi-final, semicircle'],
+    ['micro- / macro-','微 / 宏','microphone, macroeconomic'],
+    ['bene-','好','benefit, beneficial'],
+    ['mal-','坏','malfunction, malnutrition'],
+    ['tele-','远','television, telescope']
+  ]]
+];
+
+var ROOTS_MAIN=[
+  ['看听说写记（信息类）',[
+    ['spect / spec / spic','看','inspect, respect, perspective, speculate, suspicious, spectator'],
+    ['vid / vis','看','evident, visible, vision, revise, survey, provide, supervise'],
+    ['audi / aud','听','audience, audible, audio'],
+    ['dict','说','predict, dictate, contradict, dictionary'],
+    ['claim / clam','喊','proclaim, exclaim, acclaim'],
+    ['voc / vok','叫 / 声音','vocabulary, advocate, provoke, vocal'],
+    ['log / logue','话 / 道理','technology, logic, dialogue'],
+    ['graph','写 / 画','paragraph, biography, demographic, photograph'],
+    ['scrib / script','写','describe, subscription, prescribe, manuscript'],
+    ['mon','提醒 / 警告','monitor, monument, summon'],
+    ['mem','记忆','memory, memorize, commemorate'],
+    ['cogn / gnos','知道','cognitive, recognize, diagnose, ignore']
+  ]],
+  ['手做脚走（动作类）',[
+    ['fact / fac / fect / fit','做','manufacture, efficient, sufficient, benefit, facilitate, artificial'],
+    ['duct / duc','引导','educate, reduce, conduct, introduce'],
+    ['mit / miss','送 / 发','submit, permit, transmit, emit, dismiss, mission'],
+    ['pon / pos / pound','放置','component, opponent, postpone, expose, deposit'],
+    ['ject','投掷','project, reject, inject, object'],
+    ['tract','拉 / 拖','attract, extract, contract, distract'],
+    ['pel / puls','推 / 驱','propel, expel, compel, impulse'],
+    ['fer','带来 / 承担','transfer, interfere, refer, prefer, conference'],
+    ['mot / mov / mob','移动','motivate, promote, emotion, mobile, remote'],
+    ['grad / gress','走 / 步','progress, gradual, aggressive, ingredient, congress'],
+    ['cur / curs / curr','跑','occur, current, currency, curriculum'],
+    ['ven / vent','来','prevent, event, convenient, intervene'],
+    ['vert / vers','转','convert, reverse, advertise, controversy, diverse, version'],
+    ['flect / flex','弯曲','reflect, flexible, reflect on'],
+    ['plic / ply','折叠','apply, imply, reply, explicit, implicit, duplicate']
+  ]],
+  ['抓握支撑（状态类）',[
+    ['cap / cept / ceiv / cip','抓 / 取','capture, accept, receive, perceive, deceive, concept, anticipate, participate'],
+    ['tain / ten / tin','握 / 持','contain, maintain, obtain, sustain, retain, continue'],
+    ['sist / st / sta','站 / 立','insist, persist, resist, consist, assist, stable, establish, status, obstacle'],
+    ['pend / pens','悬挂 / 称量','depend, independent, suspend, expense, pension'],
+    ['struct / stru','建造','structure, infrastructure, construct, instruct'],
+    ['string / strict / strain','拉紧','strict, restrict, strain, constrain, district'],
+    ['serv','保持 / 服务','observe, preserve, conserve, reserve, deserve'],
+    ['lect / leg / lig','选 / 收集','select, collect, elect, intelligent, neglect'],
+    ['spir','呼吸','inspire, spirit, respire'],
+    ['spond / spons','承诺 / 回应','sponsor, respond, responsible, correspond']
+  ]],
+  ['心理感知（情感类）',[
+    ['sens / sent','感觉','sensible, sensitive, sentiment, consent, consensus'],
+    ['ment','心 / 想','mental, mention, comment'],
+    ['psych','心灵','psychology'],
+    ['cord / cor','心','accord, cordial'],
+    ['pass / pat','承受 / 感受','passion, passive, compassion, patience'],
+    ['path','感情','sympathy, apathy, pathetic'],
+    ['cred','相信','credit, credible, incredible, credential'],
+    ['fid','信任','confidence, confident']
+  ]],
+  ['人与社会（社会类）',[
+    ['dem','人民','democracy, demographic, epidemic'],
+    ['gen','出生 / 产生','generate, genuine, genetic'],
+    ['bio','生命','biology, antibiotic, biography'],
+    ['viv / vit','活','survive, vital, vivid, revive, vitamin'],
+    ['mort','死','mortal, mortality, mortgage'],
+    ['leg (law)','法律','legal, legislation, legitimate, privilege'],
+    ['jud / jur','判断','judge, judicial, prejudice, injury'],
+    ['reg / rect','统治 / 正','regulate, region, regular, correct, direct'],
+    ['domin','主人','dominate, dominant, domain'],
+    ['cracy / crat','统治','democracy, bureaucracy'],
+    ['prim / prin / prior','第一 / 首要','primary, primitive, primarily, prior, priority'],
+    ['merc','贸易','commercial, commerce, merchant'],
+    ['val','价值','valuable, evaluate, equivalent, prevalent, valid']
+  ]],
+  ['时间空间自然（世界类）',[
+    ['chron','时间','chronic, synchronize'],
+    ['tempor','时间','temporary, contemporary'],
+    ['ann / enn','年','annual, anniversary, perennial'],
+    ['terr','土地','territory, terrain'],
+    ['geo','地球','geography, geology'],
+    ['aqua / hydro','水','aquarium, hydroelectric'],
+    ['astro','星','astronomy, disaster'],
+    ['lum / luc','光','illuminate, luminous, lucid'],
+    ['nov','新','novel, innovation, renovate'],
+    ['sen','老','senior, senate'],
+    ['sec / sect / cid / cis','切 / 割','section, sector, insect, decide, precise, concise'],
+    ['man(u)','手','manual, manufacture, manipulate'],
+    ['ped / pod','脚','pedal, pedestrian'],
+    ['capit','头','capital, captain, per capita'],
+    ['via','路','obvious, previous, trivial, convey, vehicle, voyage']
+  ]]
+];
+
+var ROOTS_SUFFIX=[
+  ['-tion / -sion','名词','prediction, decision'],
+  ['-ment','名词','development, government'],
+  ['-ness / -ity','名词','happiness, ability'],
+  ['-ance / -ence','名词','performance, difference'],
+  ['-ship / -hood','名词','relationship, childhood'],
+  ['-ism / -ist','名词','tourism, scientist'],
+  ['-er / -or / -ee','名词（人）','employer / employee（-ee 是被动作的一方）'],
+  ['-ful / -less','形容词（一对反义）','useful, careless'],
+  ['-ous / -ious','形容词','famous, obvious'],
+  ['-ive / -tive','形容词','active, effective'],
+  ['-able / -ible','形容词（可被…的）','comfortable, credible'],
+  ['-al / -ic / -ical','形容词','natural, economic'],
+  ['-ant / -ent','形容词','important, different'],
+  ['-ate / -ify / -ize / -en','动词','evaluate, classify, realize, widen'],
+  ['-ly','副词','quickly, typically']
+];
+
+var ROOTS_DEMO=[
+  ['inevitable','in（不）+ evitable（可避免的）→ 躲不开的 → 不可避免的'],
+  ['indispensable','in（不）+ dis（分开）+ pens（称量分派）+ able → 不能被分出去的 → 不可或缺的'],
+  ['consequence','con（共同）+ sequ（跟随）+ ence → 跟在后面来的东西 → 后果'],
+  ['simultaneous','simul（相同）+ eous → 同一时间的 → 同时发生的'],
+  ['speculate','spec（看）+ ate → 看来看去 → 推测；投机'],
+  ['undermine','under（下面）+ mine（挖）→ 从底下挖 → 暗中破坏'],
+  ['permanent','per（贯穿）+ man（停留）+ ent → 一直停留的 → 永久的（同根：remain 留下、mansion 宅邸）'],
+  ['transcend','trans（越过）+ scend（爬）→ 爬过去 → 超越（同根：ascend 上升、descend 下降）'],
+  ['infrastructure','infra（下面）+ struct（建造）+ ure → 建在下面的 → 基础设施'],
+  ['contradict','contra（相反）+ dict（说）→ 反着说 → 反驳；与…矛盾'],
+  ['demographic','dem（人民）+ graph（描绘）+ ic → 描绘人口的 → 人口统计的'],
+  ['revenue','re（回）+ ven（来）→ 回进来的钱 → 财政收入；收入']
+];
+
+function rootFilter(term,arr){
+  var t=term.trim().toLowerCase();
+  if(!t)return arr.slice();
+  return arr.filter(function(it){return (it[0]+' '+it[1]+' '+it[2]).toLowerCase().indexOf(t)>-1});
+}
+
+function renderRoots(){
+  var term=el('rootSearch').value||'';
+  var html='',n=0,sec,i;
+  function groupCard(title,arr,rowFn){
+    var m=rootFilter(term,arr);
+    if(!m.length)return '';
+    n+=m.length;
+    var h='<div class="card"><h3>'+esc(title)+'</h3>';
+    for(var k=0;k<m.length;k++)h+=rowFn(m[k],k);
+    return h+'</div>';
+  }
+  function rowFn(it){return '<div class="root-row"><span class="root-term">'+esc(it[0])+'</span><span class="root-mean">'+esc(it[1])+'</span><span class="root-ex">'+esc(it[2])+'</span></div>'}
+  for(i=0;i<ROOTS_PREFIX.length;i++){sec=ROOTS_PREFIX[i];html+=groupCard('前缀 · '+sec[0],sec[1],rowFn)}
+  for(i=0;i<ROOTS_MAIN.length;i++){sec=ROOTS_MAIN[i];html+=groupCard('词根 · '+sec[0],sec[1],rowFn)}
+  html+=groupCard('高频后缀（判断词性）',ROOTS_SUFFIX,rowFn);
+  html+=groupCard('拆词实战（雅思高频词）',ROOTS_DEMO,function(it,k){
+    return '<div class="demo-item"><span class="demo-no">'+(k+1)+'</span><span class="demo-word">'+esc(it[0])+'</span>　'+esc(it[1])+'</div>';
+  });
+  el('rootContent').innerHTML=html||'<div class="card"><ul class="empty"><li>没有匹配「'+esc(term)+'」的词根</li></ul></div>';
+  el('rootCount').textContent=term.trim()?('匹配到 '+n+' 条'):'共 '+n+' 条';
+}
+
 function switchView(v){
   currentView=v;
   var tabs=document.querySelectorAll('.tab');
@@ -380,6 +611,7 @@ function switchView(v){
   if(v==='home')renderHome();
   if(v==='bank')renderBank();
   if(v==='wrong')renderWrong();
+  if(v==='roots')renderRoots();
   if(v==='settings')syncSettingsForm();
   if(v==='quiz')renderQuiz();
   window.scrollTo(0,0);
@@ -844,6 +1076,8 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 
   el('searchInput').addEventListener('input',renderBankList);
+
+  el('rootSearch').addEventListener('input',renderRoots);
 
   el('bankList').addEventListener('click',function(e){
     var b=e.target.closest('[data-del]');
